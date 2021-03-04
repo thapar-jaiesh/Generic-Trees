@@ -13,3 +13,35 @@ Sample Input 1 :
 Sample Output 1 :
 1
 */
+TreeNode<int>* maxSumNode(TreeNode<int>* root) {
+    // Write your code here
+    if(root==NULL){
+        return NULL;
+    }
+    if(root->children.size()==0){
+        return root;
+    }
+    //small calculation me root pe sambhal lo baaki recursion ko de dena
+    int sum=root->data;
+    TreeNode<int> *ans=NULL;
+    for(int i=0;i<root->children.size();i++){
+        sum+=root->children[i]->data;
+    }
+    for(int i=0;i<root->children.size();i++){
+        TreeNode<int> *temp=maxSumNode(root->children[i]);
+        int tempSum=temp->data;
+        for(int i=0;i<temp->children.size();i++){
+            tempSum+=temp->children[i]->data;
+        }
+        if(tempSum>sum){
+            ans=temp;
+        }
+        else{
+            ans=root;
+        }
+    }
+    return ans;
+    
+    
+    
+}
